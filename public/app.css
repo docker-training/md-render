@@ -1,0 +1,22 @@
+body {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+img {
+    width: 100%
+}
+
+.logo {
+    height: 3em;
+    margin-left: -5em;
+    margin-top: -1em;
+}
+
+.navbar {
+    border-radius: 0;
+}
+
+.navbar-default {
+    background-color: #0087c9;
+    border-color: #0087c9;
+}

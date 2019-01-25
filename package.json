@@ -1,0 +1,18 @@
+{
+  "name": "renderer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start-dev": "nodemon --debug app.js",
+    "start": "node app.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.15.3",
+    "marked": "^0.3.6",
+    "basic-auth": "^1.1.0",
+    "express-handlebars": "^3.0.0"
+  }
+}

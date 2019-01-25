@@ -1,0 +1,22 @@
+<div class="container">
+    <div class="row">
+        <h1>{{title}}</h1>
+        <div class="content">
+            {{{markdown}}}
+        </div>        
+    </div>
+    <div class="row">
+        <ul class="mt-article-pagination" style="display:block;">
+            {{#if previousPath}}
+            <li class="mt-pagination-previous">
+                <a class="mt-icon-previous-article" href="{{previousPath}}" title="{{previousTitle}}"><span>{{previousTitle}}</span></a>
+            </li>
+            {{/if }}
+            {{#if nextPath}}
+            <li class="mt-pagination-next">
+                <a class="mt-icon-next-article" href="{{nextPath}}" title="{{nextTitle}}"><span>{{nextTitle}}</span></a>
+            </li>
+            {{/if }}
+        </ul>
+    </div>
+</div>

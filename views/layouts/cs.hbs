@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html  lang="en">
+<head>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <meta name="robots" content="noindex">
+        <meta name="googlebot" content="noindex">
+        <link rel="shortcut icon" href="https://a.mtstatic.com/@public/production/site_6503/1470691496-favicon.ico"/>
+
+        <script type="application/ld+json">{"@context":"http:\/\/schema.org","@type":"WebPage","name":"Multiple Docker Networks","url":"https:\/\/success.docker.com\/KBase\/Multiple_Docker_Networks"}</script>
+        <script type="application/ld+json">{"@context":"http:\/\/schema.org","@type":"WebPage","name":"Multiple Docker Networks","url":"https:\/\/success.docker.com\/KBase\/Multiple_Docker_Networks","relatedLink":["https:\/\/success.docker.com\/KBase\/Different_Types_of_Volumes","https:\/\/success.docker.com\/KBase\/What_is_the_difference_between_Support_Administrators_and_Authorized_Contacts%3F","https:\/\/success.docker.com\/KBase\/How_do_I_add_or_remove_an_Authorized_Contact%3F","https:\/\/success.docker.com\/KBase\/Why_do_I_get_a_warning_when_I_have_only_two_controllers%2F%2Fmanagers_in_my_cluster%3F"]}</script>
+        <script type="application/ld+json">{"@context":"http:\/\/schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"https:\/\/success.docker.com\/KBase","name":"KBase"}}]}</script>
+
+        <title>{{title}}</title>
+
+        <link media="screen" type="text/css" rel="stylesheet" href="https://a.mtstatic.com/@cache/skin/anonymous.css?_=05e62b40636f62b445e4c9613cdf36e7_c3VjY2Vzcy5kb2NrZXIuY29t:site_6503" id="mt-screen-css" />
+        <link media="print" type="text/css" rel="stylesheet" href="https://a.mtstatic.com/@cache/skin/print.css?_=f36ae990acbf71392ec93075abeac9d2:site_6503" id="mt-print-css" />
+
+        <!--[if IE 9]><link type="text/css" rel="stylesheet" href="https://a.mtstatic.com/skins/styles/elm/out/ie9.min.css?_=5ba86c02d4c1e1a421079d187e5ec51181941ff5:site_6503"/><![endif]-->
+
+    
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<script>
+    /* Global Vars */
+    var DEKI_TOKEN = "2c67fe5ffcc6a95e97f6b7b3eebfe1f7812aeb625e533e068e8457f33e1b2ad6";
+
+    // set dockerVersions
+    var dscDockerVersions = {
+        'docker': {
+            'all': [
+                '17.03',
+            ],
+            'supported': [
+                '17.03'
+            ],
+            'longname': 'Docker',
+            'abbrev': 'Docker'
+        },
+        'dtr': {
+            'all': [
+                '2.2.4',
+                '2.2.3',
+                '2.2.2',
+                '2.2.1',
+                '2.2.0',
+                '2.1.0',
+                '2.0.2',
+                '2.0.1',
+                '2.0.0',
+                '1.4.3',
+                '1.4.2',
+                '1.4.1',
+                '1.4.0',
+                '1.3.3',
+                '1.3.2',
+                '1.3.1',
+                '1.3.0',
+                '1.2.0',
+                '1.1.0',
+                '1.0.1',
+                '1.0.0'
+            ],
+            'supported': [
+                '2.2.1',
+                '2.2.0',
+                '2.1.0',
+                '2.0.2',
+                '2.0.1',
+                '2.0.0'
+            ],
+            'longname': 'Docker Trusted Registry',
+            'abbrev': 'DTR'
+        },
+        'ucp': {
+            'all': [
+                '2.1.1',
+                '2.1.0',
+                '2.0.0',
+                '1.1.2',
+                '1.1.1',
+                '1.1.0',
+                '1.0.4',
+                '1.0.3',
+                '1.0.2',
+                '1.0.1',
+                '1.0.0'
+            ],
+            'supported': [
+                '2.1.0',
+                '2.0.0',
+                '1.1.2',
+                '1.1.1',
+                '1.1.0'
+            ],
+            'longname': 'Universal Control Plane',
+            'abbrev': 'UCP'
+        },
+        'cse': {
+            'all': [
+                '1.13.1-cs1',
+                '1.12.3-cs4',
+                '1.12.3-cs3',
+                '1.12.2-cs2',
+                '1.12.1-cs1',
+                '1.11.2-cs5',
+                '1.11.2-cs4',
+                '1.11.2-cs3',
+                '1.11.1-cs2',
+                '1.11.1-cs1',
+                '1.10.3-cs3',
+                '1.10.3-cs2',
+                '1.10.2-cs1',
+                '1.9.1-cs3',
+                '1.9.1-cs2',
+                '1.9.0-cs1'
+            ],
+            'supported': [
+                '1.13.1-cs1',
+                '1.12.3-cs4',
+                '1.12.3-cs3',
+                '1.12.2-cs2',
+                '1.12.1-cs1',
+                '1.11.2-cs5',
+                '1.11.2-cs4',
+                '1.11.2-cs3',
+                '1.11.1-cs2',
+                '1.11.1-cs1'
+            ],
+            'longname': 'Commercially Supported Engine',
+            'abbrev': 'CSE'
+        },
+        'daemon': {
+            'all': [
+                '17.03'
+            ],
+            'supported': [
+                '17.03'
+            ],
+            'longname': 'Docker daemon',
+            'abbrev': 'daemon'
+        }
+    };
+
+    // set dockerPlatforms
+    var dscDockerPlatforms = {
+        'linux': 'Linux',
+        'windows': 'Windows',
+        'mac': 'Mac',
+        'aws': 'AWS',
+        'azure': 'Azure'
+    };
+
+
+    /* Functions */
+    function dscPopulateList(target, list_type, query, limit, summary_length = 0) {
+        $.ajax({
+            cors: true,
+            url: "/@api/deki/site/query?q=" +query+ "&constraint=type:wiki AND namespace:main AND -path:Internal AND -path:Internal/*&dream.out.format=json&parser=lucene&limit=" + limit,
+            headers: { 'X-Deki-Token': DEKI_TOKEN },
+            type: 'GET',
+            dataType: 'json'
+        })
+        .done(function(json) {
+            resultHTML = '';
+
+            var entries = json.result;
+
+            $(entries).each(function(index) {
+                var entry = $(this)[0];
+                var title = entry['title'];
+                var url = entry.uri;
+                if (summary_length > 0) {
+                    var summary = entry.content;
+                    // reduce the summary text to predetermined max length
+                    if (summary.length > summary_length) {
+                        var summary = (summary.substr(0, summary_length) + "...");
+                    }
+                }
+
+                if (list_type === "li") {
+                    resultHTML += '<li><a href="' +url+ '">' +title+ '</a></li>';
+                }
+
+                else if (list_type === "dt") {
+                    resultHTML += '<dt><h5><a href="' +url+ '">' +title+ '</a></h5></dt>';
+                    resultHTML += '<dd>' +summary+ '</dd>';
+                }
+
+                else if (list_type === "div") {
+                    var titlePretitlePos = title.indexOf("ture: ");
+                    if (titlePretitlePos !== -1) {
+                        var title = title.substr(titlePretitlePos+6);
+                    }
+
+                    if (index === 0) {
+                        resultHTML += '<div class="row block">';
+                    }
+
+                    resultHTML += '<div class="col-md-4">';
+                    resultHTML += '    <h5><a href="' +url+ '">'+title+ '</a></h5>';
+                    resultHTML += '    <p>' +summary+ '</p>';
+                    resultHTML += '</div>';
+
+                    // end of row or last item
+                    if ((index+1) % 3 == 0 || $(entries).length-1 === index) {
+                        resultHTML += '</div>';
+                    }
+
+                    // end of row but not last item, so start new row
+                    if ((index+1) % 3 == 0 && $(entries).length-1 !== index) {
+                        resultHTML += '<div class="row block">';
+                    }
+                }
+            });
+
+            target.html(resultHTML);
+        })
+        .fail(function(json) {
+            console.dir(json);
+        });
+    }
+</script>
+<style>
+    code {
+        background-color: inherit !important;
+    }
+</style>
+</head>
+<body class="elm-user-anonymous columbia-page-main columbia-article-tutorial columbia-browser-chrome columbia-platform-macintosh columbia-breadcrumb-home-kbase-multipledockernetworks columbia-live no-touch columbia-lang-en-us columbia-skin-elm">
+<a class="elm-skip-link" href="#elm-main-content" tabindex="1" title="Press enter to skip to the main content">Skip to main content</a><main class="elm-skin-container" data-ga-category="Anonymous | page">
+    <header class="elm-header">
+        <div class="elm-header-custom">    <header class="header">
+        <div class="fan"></div>
+        <div class="container">
+            <div class="row">
+                <nav class="nav-primary">
+                    <div class="container">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                          </button>
+                          <img alt="Docker Success Center" title="Docker Success Center" class="logo internal" src="https://success.docker.com/@api/deki/files/367/docker-success.svg?revision=1" />
+                        </div>
+                        <div id="navbar" class="navbar-collapse collapse">
+                            <ul class="primary nav navbar-nav">
+                                <li><a href="https://docker.com/what-docker" rel="external nofollow" target="_blank" class="link-https">What is Docker?</a></li>
+                                <li><a href="https://docker.com/get-docker" rel="external nofollow" target="_blank" class="link-https">Product</a></li>
+                                <li class="dropdown">
+                                    <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" href="https://success.docker.com/Template:Custom/Views/Header#" rel="internal">Get Docker <span class="caret"></span></a>
+                                    <ul class="dropdown-menu nav-main">
+                                        <div mt-section-origin="Template:Custom/Views/Header" class="mt-section" id="section_1"><h6 class="dropdown-header editable">For Desktops</h6>
+                                        <li><a href="https://docker.com/docker-mac" rel="external nofollow" target="_blank" class="link-https">Mac</a></li>
+                                        <li><a href="https://docker.com/docker-windows" rel="external nofollow" target="_blank" class="link-https">Windows</a></li>
+                                        </div><div mt-section-origin="Template:Custom/Views/Header" class="mt-section" id="section_2"><h6 class="dropdown-header editable">For Cloud Providers</h6>
+                                        <li><a href="https://docker.com/docker-aws" rel="external nofollow" target="_blank" class="link-https">AWS</a></li>
+                                        <li><a href="https://docker.com/docker-microsoft-azure" rel="external nofollow" target="_blank" class="link-https">Azure</a></li>
+                                        </div><div mt-section-origin="Template:Custom/Views/Header" class="mt-section" id="section_3"><h6 class="dropdown-header editable">For Servers</h6>
+                                        <li><a href="https://docker.com/docker-windows-server" rel="external nofollow" target="_blank" class="link-https">Windows Server</a></li>
+                                        <li><a href="https://docker.com/docker-centos" rel="external nofollow" target="_blank" class="link-https">CentOS</a></li>
+                                        <li><a href="https://docker.com/docker-debian" rel="external nofollow" target="_blank" class="link-https">Debian</a></li>
+                                        <li><a href="https://docker.com/docker-fedora" rel="external nofollow" target="_blank" class="link-https">Fedora</a></li>
+                                        <li><a href="https://docker.com/docker-oracle-linux" rel="external nofollow" target="_blank" class="link-https">Oracle Enterprise Linux</a></li>
+                                        <li><a href="https://docker.com/docker-rhel" rel="external nofollow" target="_blank" class="link-https">RHEL</a></li>
+                                        <li><a href="https://docker.com/docker-sles" rel="external nofollow" target="_blank" class="link-https">SLES</a></li>
+                                        <li><a href="https://docker.com/docker-ubuntu" rel="external nofollow" target="_blank" class="link-https">Ubuntu</a></li>
+                                    </div></ul>
+                                </li>
+                                <li><a href="https://docs.docker.com" rel="external nofollow" target="_blank" class="link-https">Docs</a></li>
+                                <li><a href="https://docker.com/docker-community" rel="external nofollow" target="_blank" class="link-https">Community</a></li>
+                            </ul>
+                            <ul class="nav navbar-nav navbar-right user-nav">
+                                <li><a href="https://cloud.docker.com/" rel="external nofollow" target="_blank" class="link-https">Create Docker ID</a></li>
+                                <li><a href="https://cloud.docker.com/login" rel="external nofollow" target="_blank" class="link-https">Sign In</a></li>
+                            </ul>
+                        </div>
+                        
+                    </div>
+                </nav>
+            </div>
+        </div>
+
+        
+        <div class="container">
+            <div class="row">
+                <div class="hero-text">
+                    <div class="hero-text-centered">
+                        <div mt-section-origin="Template:Custom/Views/Header" class="mt-section" id="section_4"><h1 class="editable">Docker Success Center</h1>
+                        <p>The Docker enterprise customer portal.</p>
+                        
+                    </div></div>
+                </div>
+            </div>
+        </div>
+
+        
+        <nav class="nav-secondary-tabs" data-spy="affix" data-offset-top="410">
+            <div class="container">
+                <div class="search-form">
+                    <form action="/Special:Search" method="get">
+                        <input name="q" type="search" class="search"></input>
+                        <input type="submit" tabindex="-1" style="display:none;"></input>
+                    </form>
+                </div>
+                <div id="tabs">
+                    <ul class="tabs nav navbar-nav">
+                        <li data-tab-path="/"><a href="https://success.docker.com/" rel="internal">Overview</a></li>
+                        <li data-tab-path="/KBase"><a href="https://success.docker.com/KBase" rel="internal">Knowledge Base</a></li>
+                        <li data-tab-path="/Architecture"><a href="https://success.docker.com/Architecture" rel="internal">Reference Architectures</a></li>
+                        <li data-tab-path="/Support"><a href="https://success.docker.com/Support" rel="internal">Technical Support</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+</div>
+        <div class="elm-header-logo-container">
+            <a href="/" title="Docker, Inc."><img src="https://a.mtstatic.com/@public/production/site_6503/1467910796-logo.png" alt="Docker, Inc." /></a>
+        </div>
+        <nav class="elm-header-user-nav elm-nav">
+            <div class="elm-nav-container">
+                <ol>
+                    <li class="elm-global-search"><a class="mt-icon-site-search mt-toggle-form" href="#" title="Search site">Search site</a>
+<div class="mt-quick-search-container mt-toggle-form-container">
+    <form action="/Special:Search">
+        <input name="qid" id="mt-qid-skin" type="hidden" value="" />
+        <input name="fpid" id="mt-search-filter-id" type="hidden" value="230" />
+        <input name="fpth" id="mt-search-filter-path" type="hidden" />
+        <input name="path" id="mt-search-path" type="hidden" value="" />
+
+        <label class="mt-label" for="mt-site-search-input">
+            Search
+        </label>
+        <input class="mt-text mt-search search-field" name="search" id="mt-site-search-input" placeholder="How can we help you?" tabindex="1" type="search" />
+        <button class="mt-button ui-button-icon mt-icon-site-search-button search-button" tabindex="2" type="submit">
+            Search
+        </button>
+    </form>
+</div>
+<div class="elm-search-back"><a class="mt-icon-browser-back" href="#" id="mt-browser-back" title="Go back to previous article">Go back to previous article</a></div>
+</li>
+                    <li class="elm-user-menu"><ol class="mt-user-menu">
+
+    <li class="mt-user-quick-login">
+        <div class="mt-quick-login-container mt-toggle-form-container">
+            <form action="https://success.docker.com/Special:UserLogin?returntotitle=KBase%2FMultiple_Docker_Networks" class="mt-form" method="POST" id="quick-login">
+                <div class="mt-field">
+                    <input autocomplete="off" class="reset mt-text" id="username" name="username" placeholder="Username" tabindex="1" type="text" />
+                    <label class="title login-form-label mt-label" for="username">Username</label>
+                </div>
+                <div class="mt-field">
+                    <input autocomplete="off" class="mt-text" id="password" name="password" placeholder="Password" tabindex="1" type="password" />
+                    <label class="title login-form-label mt-label" for="password">Password</label>
+                </div>
+                <div class="mt-field mt-submit">
+                    <button class="ui-button ui-button-primary" type="submit" tabindex="1">Sign in</button>
+                </div>
+            </form>
+        </div>
+    </li>
+
+    <li class="mt-user-menu-user">
+        <a class="mt-icon-quick-sign-in mt-dropdown-link mt-toggle-right"
+           href="#"
+           title="Sign in">Sign in</a>
+
+        <ul class="mt-user-menu-container mt-dropdown">
+
+            <li class="mt-login-sign-in">
+                <a class="mt-icon-quick-sign-in" href="https://success.docker.com/Special:UserLogin?returntotitle=KBase%2FMultiple_Docker_Networks" title="Sign in">
+                    Sign in
+                </a>
+            </li>
+
+            <li class="mt-login-forgot-password">
+                <a class="mt-icon-login-forgot-password" href="https://success.docker.com/Special:UserPassword" title="Retrieve lost password">
+                    Forgot password
+                </a>
+            </li>
+        </ul>
+    </li>
+</ol>
+</li>
+                </ol>
+            </div>
+        </nav>
+        <nav class="elm-header-global-nav elm-nav" data-ga-action="Elm Navigation">
+            <div class="elm-nav-container">
+                <button class="elm-hierarchy-trigger mt-hierarchy-trigger ui-button-icon mt-icon-hierarchy-trigger-closed" title="Expand/collapse global hierarchy" data-ga-label="Hierarchy Toggle - Tree View">
+                    Expand/collapse global hierarchy
+                </button>
+                <ol class="mt-breadcrumbs" data-ga-action="Breadcrumbs">
+                        <li>
+                            <a href="https://success.docker.com/" data-ga-label="Breadcrumb category">
+                                <span class="mt-icon-article-category mt-icon-article-home"></span>
+                                    Home
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://success.docker.com/KBase" data-ga-label="Breadcrumb category">
+                                <span class="mt-icon-article-category"></span>
+                                    KBase
+                            </a>
+                        </li>
+                </ol>                <button class="mt-icon-hierarchy-mobile-view-trigger ui-button-icon mt-icon-hierarchy-mobile-trigger-closed" title="Expand/collapse global location" data-ga-label="Hierarchy Toggle - Breadcrumb Expand/Collapse">
+                    Expand/collapse global location
+                </button>
+            </div>
+        </nav>
+        <nav class="elm-nav elm-header-hierarchy">
+            <div class="elm-nav-container">
+                <div class="elm-hierarchy mt-hierarchy"></div>
+            </div>
+        </nav>
+    </header>
+    <article class="elm-content-container" id="elm-main-content" tabindex="-1">
+        {{{body}}}
+    </article>
+    <footer class="elm-footer">
+        <nav class="elm-footer-siteinfo-nav elm-nav">
+            <div class="elm-nav-container">
+                <ol>
+                    <li class="elm-footer-copyright">&copy; Copyright 2017 Docker, Inc.</li>
+                    <li class="elm-footer-powered-by"><a href="http://www.mindtouch.com" class="mt-poweredby product " title="MindTouch v.17.4" target="_blank">Powered by MindTouch <span class="mt-registered">&reg;</span></a></li>
+                </ol>
+            </div>
+        </nav>
+        <div class="elm-footer-custom" data-columbia-matchmedia-query="all" data-columbia-matchmedia-path="targets/pagefooter"></div>
+    </footer>
+</main>
+<div id="mt-modal-container"></div>
+</body>
+<script async="async" src="https://success.docker.com/@embed/f1/default.js"></script>
+<script type="text/javascript">new Deki.Page(1238).logPageView();</script><script type="text/javascript">(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-65721316-10', 'success.docker.com', {'name': 'mtTracker'});ga('mtTracker.send', 'pageview');</script><script type="text/javascript">$(function(){Deki.Fonts.loadFonts();});</script><script type="text/plain" id="mt-deki-stats">{"stats":{"totals":{"api":"0.00","cache":"6.44","other":"56.51","elapsed":"62.95"},"requests":{"api":{},"_cache":{"0":{"cache":"cache.apc","time":"0.87","hit":1},"1":{"cache":"cache.memcache.content","time":"5.57","hit":1}}}}}</script><!-- JQuery already on the page -->
+<!-- bootstrap.min.js breaks MT -->
+
+<script>
+$(function() {
+    /* Tab highlights */
+    var dscCurrentTab = "/" + window.location.pathname.split("/")[1];
+    $("#tabs li[data-tab-path='" +dscCurrentTab+"']").addClass("active");
+
+    /* Source Data */
+    // slurp in the global settings data from the page
+    var mtGlobalSettings = $.parseJSON($('#mt-global-settings').html());
+
+    /* Handle testedon Tags */
+    // read the metadata
+    testedonTags = $("li.mt-tag-link").find("a:contains('testedon:')");
+    testedonTags.each(function() {
+        var testedon = $(this).html().split(":")[1].split("-");
+        var testedonProduct = testedon.shift();
+        var testedonVersion = testedon.join("-"); //some version strings have '-' character
+
+        if (typeof dscDockerVersions[testedonProduct] != 'undefined' && dscDockerVersions[testedonProduct]['all'].indexOf(testedonVersion) != -1) {
+            var testedonLabel = "Tested on " + dscDockerVersions[testedonProduct]['abbrev'] + " " + testedonVersion;
+            var testedonMessage = "The information in this article was tested with " + dscDockerVersions[testedonProduct]['longname'] + " (" + dscDockerVersions[testedonProduct]['abbrev'] + ") version " + testedonVersion + ". It's applicability to other versions has not been tested.";
+            $('ol.elm-meta-top').append('<li class="elm-meta-btn btn btn-default btn-xs" data-toggle="tooltip" data-placement="bottom" title="' + testedonMessage + '">' + testedonLabel + '</li>');
+        }
+    });
+
+
+    /* Handle platform Classification */
+    var platform = $("dt.mt-classification-label:contains('Platform')").next("dd.mt-classification-value").find("a").html();
+    if (typeof dscDockerPlatforms[platform] != 'undefined') {
+        platform = platform.toLowerCase();
+        var platformLabel = dscDockerPlatforms[platform] + " Only";
+        var platformMessage = "This article only applies to the " + dscDockerPlatforms[platform] + " platform.";
+        $('ol.elm-meta-top').append('<li class="elm-meta-btn btn btn-default btn-xs" data-toggle="tooltip" data-placement="bottom" title="' + platformMessage + '">' + platformLabel + '</li>');
+    }
+
+
+    /* Search Page */
+    // Make the faceted search show by default.
+    if ( $("body").hasClass('columbia-special-search') ) {
+        $("div.mt-classification-filter-toggle-container").addClass('mt-classification-filter-open');
+        $("div.mt-classification-filter").css('display', 'block');
+    }
+
+
+    /* Hide Unnecessary Elements */
+    // Hide TOCs that are empty
+    $("#mt-toc-container").find(".mt-toc-content:contains('No headers')").parent().css("display", "none");
+
+    // Hide the testedon tags on the bottom
+    $(".elm-meta-bottom.elm-meta-data").find(".elm-tags").find("a:contains('testedon:')").parent("li").css("display", "none");
+
+
+    /* Bylines */
+    // Set the byline
+    if (typeof authorByline == 'undefined') {
+        // get the author's username
+        $.ajax({
+            url: '/@api/deki/pages/' + mtGlobalSettings['pageId'] + '?dream.out.format=json',
+            dataType: 'json'
+        })
+        .done(function(response) {
+            var authorUsername = response['user.createdby']['username'];
+            var authorPage = "/User:" + authorUsername;
+
+            // get author name
+            $.get(authorPage, function(data) {
+                var authorName = $(data).find("#title").html();
+
+                // update the page
+                var authorByline = '<a href="' + authorPage + '" target="_blank">' + authorName + '</a>';
+                $("body").find("ol.elm-meta-top").prepend('<li class="elm-authored-by"><dl class="mt-authored-by-container"><dt class="mt-authored-by-label">Authored By</dt><dd class="mt-authored-by">' + authorByline + '</dd></dl></li>');
+            });
+        });
+    } else {
+        $("body").find("ol.elm-meta-top").prepend('<li class="elm-authored-by"><dl class="mt-authored-by-container"><dt class="mt-authored-by-label">Authored By</dt><dd class="mt-authored-by">' + authorByline + '</dd></dl></li>');
+    }
+
+    /* Tooltips */
+    // Activate tooltips
+     $('[data-toggle="tooltip"]').tooltip();
+});
+
+
+
+/*
+ * from main.js
+ */
+var $body   = $(document.body);
+var navHeight = $('.navbar').outerHeight(true) + 10;
+
+/*
+$body.scrollspy({
+	target: '#leftCol',
+	offset: navHeight
+});
+
+$(document).ready(function(){
+  // Add smooth scrolling to all links
+  $(".toc-nav a").on('click', function(event) {
+
+    // Make sure this.hash has a value before overriding default behavior
+    if (this.hash !== "") {
+      // Prevent default anchor click behavior
+      event.preventDefault();
+
+      // Store hash
+      var hash = this.hash;
+
+      // Using jQuery's animate() method to add smooth page scroll
+      // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
+      $('html, body').animate({
+        scrollTop: $(hash).offset().top
+      }, 800, function(){
+
+        // Add hash (#) to URL when done scrolling (default click behavior)
+        window.location.hash = hash;
+      });
+    } // End if
+  });
+});
+*/
+
+/*
+ *
+ * Tooltip *********************************************************************
+ *
+ */
+/*
+$(function() {
+    $('[data-toggle="tooltip"]').tooltip()
+});
+*/
+
+/*
+ *
+ * make dropdown show on hover *********************************************************************
+ *
+ */
+
+$('ul.nav li.dropdown').hover(function() {
+  $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeIn(500);
+}, function() {
+  $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeOut(500);
+});
+
+
+
+$(".search-primary").focus(function() {
+    $(".user-nav").fadeOut(1);
+}).blur(function() {
+    $(".user-nav").fadeIn();
+});
+
+
+$(".search").focus(function() {
+    $(".tabs").fadeOut();
+}).blur(function() {
+    $(".tabs").fadeIn();
+});
+</script>
+</html>
