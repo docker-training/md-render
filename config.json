@@ -1,6 +1,6 @@
 {
     "contentRootPath": "./content",
     "markdownFileExtensions": [".md", ".markdown"],
-    "nativeRenderFileExtensions": [".pdf", ".png", ".img"],
+    "nativeRenderFileExtensions": [".pdf", ".png", ".img", ".tgz"],
     "codeRenderMimeTypes": ["text/plain"]
 }
