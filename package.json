@@ -11,7 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.15.3",
-    "marked": "^0.3.6",
+    "marked": "^1.1.0",
     "basic-auth": "^1.1.0",
     "express-handlebars": "^3.0.0"
   }
