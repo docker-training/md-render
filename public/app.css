@@ -2,14 +2,11 @@ body {
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 
-img {
-    width: 100%
-}
-
 .logo {
     height: 3em;
     margin-left: -5em;
     margin-top: -1em;
+    width: 100%;
 }
 
 .navbar {
@@ -19,4 +16,18 @@ img {
 .navbar-default {
     background-color: #00A090;
     border-color: #00A090;
+}
+
+th, td {
+    padding-right: 2em;
+}
+
+thead {
+    border-bottom: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: #000000;
+}
+
+tr:nth-child(even) {
+    background: #DDDDDD;
 }
