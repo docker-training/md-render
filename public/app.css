@@ -31,3 +31,7 @@ thead {
 tr:nth-child(even) {
     background: #DDDDDD;
 }
+
+table {
+    margin-bottom: 1em;
+}
