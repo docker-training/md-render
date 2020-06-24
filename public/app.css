@@ -2,6 +2,10 @@ body {
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 
+img {
+    max-width: 100%;
+}
+
 .logo {
     height: 3em;
     margin-left: -5em;
