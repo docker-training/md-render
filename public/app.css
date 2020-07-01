@@ -1,5 +1,6 @@
 body {
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    counter-reset: chapter;
 }
 
 img {
@@ -38,4 +39,22 @@ tr:nth-child(even) {
 
 table {
     margin-bottom: 1em;
+}
+
+h2 {
+    counter-reset: section;
+    counter-increment: chapter;
+}
+
+h2:before {
+    content: counter(chapter) ". ";
+}
+
+h3 {
+    counter-reset: subsection;
+    counter-increment: section;
+}
+
+h3:before {
+    content: counter(chapter) ". " counter(section) ". ";
 }

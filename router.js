@@ -6,6 +6,20 @@ var marked = require('marked')
 var config = require('./config');
 var utils = require('./utils');
 
+marked.setOptions({headerIds: true});
+var renderer = {
+  heading(text, level) {
+    var escapedText = text.replace(/[\s]+/g, '-');
+    return '<h' + level + '><a name="' +
+      escapedText +
+      '" class="anchor" href="#' +
+      escapedText +
+      '">' +
+      text + '</a></h' + level + '>';
+  }
+};
+marked.use({ renderer });
+
 router.get("*", function(req, res){
 
     //get path from uri
