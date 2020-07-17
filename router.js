@@ -46,8 +46,13 @@ router.get("*", function(req, res){
     if (utils.isFileExtensionMatch(fullPath, config.markdownFileExtensions)){
         //if markdown, return html rendered markdown
         var data = marked(file.toString());
-        var fileName = path.basename(fullPath);
-        return res.render('index', { title:fileName, markdown:data })
+        var page_type;
+        if( path.basename(fullPath) === 'README.md' ) {
+            page_type = 'front';
+        } else {
+            page_type = 'content';
+        }
+        return res.render('index', { page_type:page_type, markdown:data })
     } else if (utils.isFileExtensionMatch(fullPath, config.nativeRenderFileExtensions)){
         //if native file (e.g. pdf), render directly - TODO: fix pdf rendering
         return res.send(file)
