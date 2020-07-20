@@ -6,6 +6,20 @@ var marked = require('marked')
 var config = require('./config');
 var utils = require('./utils');
 
+marked.setOptions({headerIds: true});
+var renderer = {
+  heading(text, level) {
+    var escapedText = text.replace(/[\s]+/g, '-');
+    return '<h' + level + '><a name="' +
+      escapedText +
+      '" class="anchor" href="#' +
+      escapedText +
+      '">' +
+      text + '</a></h' + level + '>';
+  }
+};
+marked.use({ renderer });
+
 router.get("*", function(req, res){
 
     //get path from uri
@@ -32,8 +46,13 @@ router.get("*", function(req, res){
     if (utils.isFileExtensionMatch(fullPath, config.markdownFileExtensions)){
         //if markdown, return html rendered markdown
         var data = marked(file.toString());
-        var fileName = path.basename(fullPath);
-        return res.render('index', { title:fileName, markdown:data })
+        var page_type;
+        if( path.basename(fullPath) === 'README.md' ) {
+            page_type = 'front';
+        } else {
+            page_type = 'content';
+        }
+        return res.render('index', { page_type:page_type, markdown:data })
     } else if (utils.isFileExtensionMatch(fullPath, config.nativeRenderFileExtensions)){
         //if native file (e.g. pdf), render directly - TODO: fix pdf rendering
         return res.send(file)
